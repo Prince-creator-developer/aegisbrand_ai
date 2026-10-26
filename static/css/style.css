@@ -1,8 +1,18 @@
-/* AegisBrand AI Enterprise Styling */
+/* AegisBrand AI - Enterprise Design System (Linear / Vercel Aesthetic) */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+:root {
+    --brand-primary: #4f46e5;
+    --brand-cyan: #06b6d4;
+    --brand-emerald: #10b981;
+    --brand-amber: #f59e0b;
+    --brand-rose: #ef4444;
+}
 
 body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
 }
 
 .font-mono-code {
@@ -13,13 +23,13 @@ body {
     font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: transparent;
 }
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
@@ -31,30 +41,95 @@ body {
 
 /* Diff Styling */
 .diff-del-inline {
-    background-color: rgba(239, 68, 68, 0.15);
+    background-color: rgba(239, 68, 68, 0.12);
     color: #b91c1c;
     text-decoration: line-through;
-    padding: 2px 4px;
-    border-radius: 3px;
+    padding: 2px 6px;
+    border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .diff-add-inline {
-    background-color: rgba(16, 185, 129, 0.15);
+    background-color: rgba(16, 185, 129, 0.12);
     color: #047857;
     font-weight: 600;
-    padding: 2px 4px;
-    border-radius: 3px;
+    padding: 2px 6px;
+    border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
-/* Highlight Animation */
-@keyframes pulseSubtle {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.01); }
-    100% { transform: scale(1); }
+/* Toast Notifications Container */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
 }
 
-.card-highlight-action {
-    animation: pulseSubtle 1.5s infinite ease-in-out;
+.toast-msg {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-msg.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-msg.toast-success {
+    border-left: 4px solid #10b981;
+}
+
+.toast-msg.toast-error {
+    border-left: 4px solid #ef4444;
+}
+
+.toast-msg.toast-info {
+    border-left: 4px solid #4f46e5;
+}
+
+/* Subtle Hover Cards */
+.card-hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+}
+
+/* Color Swatch Pill */
+.color-swatch-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: inline-block;
+}
+
+/* Visual Mock Canvas */
+.visual-mock-container {
+    background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.05) 0%, rgba(248, 250, 252, 1) 100%);
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
 }
