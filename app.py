@@ -1,17 +1,36 @@
 import os
-from fastapi import FastAPI, Request, HTTPException
+import sys
+from fastapi import FastAPI, Request, HTTPException, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
+
+# Ensure parent directory is in sys.path
+CURRENT_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+if CURRENT_FILE_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_FILE_DIR)
 
 from core.engine import engine
 from core.knowledge_base import kb
 from core.workflow import workflow
 from core.ambiguity_analyzer import analytics
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Dynamic Base Directory Discovery for Cloud & Serverless
+def get_base_dir():
+    candidates = [
+        CURRENT_FILE_DIR,
+        os.path.dirname(CURRENT_FILE_DIR),
+        os.getcwd()
+    ]
+    for c in candidates:
+        if os.path.exists(os.path.join(c, "templates", "index.html")):
+            return c
+    return CURRENT_FILE_DIR
+
+BASE_DIR = get_base_dir()
 
 app = FastAPI(
     title="AegisBrand AI — Pre-Publication Brand Governance Platform",
@@ -28,9 +47,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Static & Template mounting
-app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
-templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
+# Static & Template mounting (Safe for Serverless)
+static_dir = os.path.join(BASE_DIR, "static")
+if os.path.exists(static_dir):
+    try:
+        app.mount("/static", StaticFiles(directory=static_dir), name="static")
+    except Exception as e:
+        print(f"Notice: Static mount skipped: {e}")
 
 # Request Models
 class AuditRequest(BaseModel):
@@ -70,11 +93,46 @@ class VerifiedClaimRequest(BaseModel):
     keywords: List[str]
 
 # -------------------------------------------------------------
-# FRONTEND ROUTE
+# FRONTEND ROUTES (FAIL-SAFE FOR VERCEL & SERVERLESS)
 # -------------------------------------------------------------
-@app.get("/")
-def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    template_paths = [
+        os.path.join(BASE_DIR, "templates", "index.html"),
+        os.path.join(CURRENT_FILE_DIR, "templates", "index.html"),
+        os.path.join(os.getcwd(), "templates", "index.html")
+    ]
+    for p in template_paths:
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                return HTMLResponse(content=f.read())
+    return HTMLResponse(content="<h1>AegisBrand AI Backend Running</h1><p>Visit /api/guidelines to verify API.</p>")
+
+@app.get("/static/css/style.css")
+def get_css():
+    css_paths = [
+        os.path.join(BASE_DIR, "static", "css", "style.css"),
+        os.path.join(CURRENT_FILE_DIR, "static", "css", "style.css"),
+        os.path.join(os.getcwd(), "static", "css", "style.css")
+    ]
+    for p in css_paths:
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                return Response(content=f.read(), media_type="text/css")
+    return Response(content="", media_type="text/css")
+
+@app.get("/static/js/app.js")
+def get_js():
+    js_paths = [
+        os.path.join(BASE_DIR, "static", "js", "app.js"),
+        os.path.join(CURRENT_FILE_DIR, "static", "js", "app.js"),
+        os.path.join(os.getcwd(), "static", "js", "app.js")
+    ]
+    for p in js_paths:
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                return Response(content=f.read(), media_type="application/javascript")
+    return Response(content="", media_type="application/javascript")
 
 # -------------------------------------------------------------
 # CORE AUDIT API
