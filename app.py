@@ -162,7 +162,7 @@ def get_analytics():
 if __name__ == "__main__":
     import uvicorn
     print("\n" + "="*70)
-    print("🚀 AegisBrand AI — Pre-Publication Brand Governance Platform Running!")
-    print("👉 Access in browser: http://localhost:8000")
+    print("AegisBrand AI - Pre-Publication Brand Governance Platform Running!")
+    print("Access in browser: http://localhost:8000")
     print("="*70 + "\n")
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
