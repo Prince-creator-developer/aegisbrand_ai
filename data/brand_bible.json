@@ -1,0 +1,97 @@
+{
+  "brand_name": "Inkloom AI",
+  "product_suite": "AegisBrand OS",
+  "voice_and_tone": {
+    "pillars": [
+      {
+        "trait": "Confident & Authoritative",
+        "description": "Speak with technical depth and credibility without bragging or belittling others.",
+        "dos": "State verified achievements, cite audited metrics, highlight robust engineering.",
+        "donts": "Do not use hyperbole like 'crushes competitors', 'unbeatable', or 'the undisputed king'."
+      },
+      {
+        "trait": "Approachable & Empowering",
+        "description": "Treat creators as partners; educate and elevate rather than dictate.",
+        "dos": "Use inclusive pronouns, supportive guidance, and clear explanations.",
+        "donts": "Never use dismissive or punitive words like 'forbidden', 'idiotic', or 'rejected without appeal'."
+      },
+      {
+        "trait": "Ethical & Transparent",
+        "description": "Be honest about AI capabilities, privacy boundaries, and factual evidence.",
+        "dos": "Clearly disclose AI assistance, cite approved sources, maintain modesty.",
+        "donts": "Never claim '100% infallible', 'zero-defect guarantee', or unproven magical outcomes."
+      }
+    ],
+    "target_reading_level": "Grade 8-11 (Clear, professional, accessible)",
+    "prohibited_tones": ["Aggressive", "Arrogant", "Deceptive", "Sloppy", "Hyperbolic"]
+  },
+  "prohibited_terms": [
+    {
+      "term": "crushes competitors",
+      "reason": "Violates Brand Tone Pillar 1 (Non-aggressive, respectful positioning).",
+      "guideline_ref": "Tone Guide Sec 2.1: Competitive Conduct",
+      "suggestion": "outperforms industry benchmarks"
+    },
+    {
+      "term": "cheap",
+      "reason": "Cheap devalues the brand image and implies low quality.",
+      "guideline_ref": "Brand Positioning Sec 3.4: Value Messaging",
+      "suggestion": "cost-effective or accessible"
+    },
+    {
+      "term": "infallible",
+      "reason": "Absolute superlatives are legally risky and technologically inaccurate.",
+      "guideline_ref": "Legal Compliance Sec 1.2: Absolute Superlatives",
+      "suggestion": "industry-leading or high-reliability"
+    },
+    {
+      "term": "guaranteed 10x",
+      "reason": "Unsupported promotional ROI guarantees violate FTC and ASCI advertising regulations.",
+      "guideline_ref": "Advertising Standards Sec 4.1: Promotional Guarantees",
+      "suggestion": "proven up to 10x in verified customer case studies"
+    },
+    {
+      "term": "revolutionary miracle",
+      "reason": "Hype-driven marketing cliches degrade engineering credibility.",
+      "guideline_ref": "Content Stylebook Sec 5.3: Buzzword Lexicon",
+      "suggestion": "groundbreaking or transformative architecture"
+    },
+    {
+      "term": "inkloomAI",
+      "reason": "Incorrect brand casing. Must always have a space between Inkloom and AI.",
+      "guideline_ref": "Nomenclature Guide Sec 1.1: Trademark Capitalization",
+      "suggestion": "Inkloom AI"
+    },
+    {
+      "term": "Aegis Brand",
+      "reason": "Product brand must be written as single compound 'AegisBrand' followed by OS or AI.",
+      "guideline_ref": "Nomenclature Guide Sec 1.3: Product Branding",
+      "suggestion": "AegisBrand OS"
+    }
+  ],
+  "visual_identity": {
+    "primary_palette": [
+      {"name": "Indigo Core", "hex": "#4F46E5", "role": "Primary Brand Action"},
+      {"name": "Cyber Cyan", "hex": "#06B6D4", "role": "Secondary Highlight"},
+      {"name": "Emerald Trust", "hex": "#10B981", "role": "Success & Verified Badge"},
+      {"name": "Slate Obsidian", "hex": "#0F172A", "role": "Primary Text & Background"},
+      {"name": "Pure White", "hex": "#FFFFFF", "role": "Card Canvas & Surface"}
+    ],
+    "disallowed_colors": [
+      {"hex": "#FF0055", "reason": "Neon Magenta clashes with brand trust spectrum", "suggested_hex": "#4F46E5"},
+      {"hex": "#FFFF00", "reason": "Pure yellow fails WCAG AA 4.5:1 text contrast", "suggested_hex": "#D97706"}
+    ],
+    "logo_rules": {
+      "aspect_ratio": 1.0,
+      "aspect_ratio_tolerance": 0.05,
+      "minimum_exclusion_zone_px": 24,
+      "minimum_resolution_px": 128
+    },
+    "accessibility": {
+      "wcag_level": "AA",
+      "minimum_contrast_normal_text": 4.5,
+      "minimum_contrast_large_text": 3.0,
+      "alt_text_required": true
+    }
+  }
+}

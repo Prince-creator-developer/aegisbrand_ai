@@ -1,0 +1,49 @@
+{
+  "verified_claims": [
+    {
+      "id": "CLM-001",
+      "topic": "System Availability & Uptime",
+      "approved_statement": "Delivers 99.9% verified uptime backed by enterprise SLA guarantee.",
+      "evidence_source": "Audited Cloud Architecture SLA Report Q3 2026",
+      "valid_keywords": ["99.9%", "uptime", "availability", "sla"],
+      "forbidden_unverified_phrases": ["100% uptime", "infallible uptime", "zero downtime forever", "99.999%"],
+      "correction_template": "delivers 99.9% verified uptime backed by enterprise SLA"
+    },
+    {
+      "id": "CLM-002",
+      "topic": "Customer Adoption & Scale",
+      "approved_statement": "Trusted by over 1,200+ growing organizations and marketing teams globally.",
+      "evidence_source": "Verified CRM Active Subscriber Ledger (October 2026)",
+      "valid_keywords": ["1,200+", "1200", "growing organizations", "customers"],
+      "forbidden_unverified_phrases": ["over 50,000 enterprises", "used by millions", "every fortune 500 company"],
+      "correction_template": "trusted by over 1,200+ growing organizations worldwide"
+    },
+    {
+      "id": "CLM-003",
+      "topic": "Security & Regulatory Compliance",
+      "approved_statement": "SOC2 Type II, ISO 27001 certified, and GDPR compliant with zero customer data retention.",
+      "evidence_source": "Third-Party AICPA SOC2 Type II Audit & BSI ISO Certificate",
+      "valid_keywords": ["soc2", "type ii", "iso 27001", "gdpr"],
+      "forbidden_unverified_phrases": ["military grade encryption", "100% hack-proof", "unhackable", "hipaa certified"],
+      "correction_template": "SOC2 Type II certified and GDPR compliant with zero-data retention"
+    },
+    {
+      "id": "CLM-004",
+      "topic": "Performance & Review Velocity",
+      "approved_statement": "Reduces pre-publication brand review turnaround latency by up to 95%.",
+      "evidence_source": "Internal Enterprise Cohort Benchmark Study (July–September 2026)",
+      "valid_keywords": ["95%", "turnaround", "latency", "bottleneck"],
+      "forbidden_unverified_phrases": ["instant 100x speedup", "eliminates all human work", "instant zero-second publishing"],
+      "correction_template": "accelerates review velocity by up to 95% while keeping humans in the loop"
+    },
+    {
+      "id": "CLM-005",
+      "topic": "Deployment Architecture",
+      "approved_statement": "Available as a secure multi-tenant SaaS or private single-tenant VPC deployment.",
+      "evidence_source": "Product Architecture Whitepaper v2.4",
+      "valid_keywords": ["vpc", "multi-tenant", "private deployment", "cloud"],
+      "forbidden_unverified_phrases": ["available on any toaster", "free forever without limits"],
+      "correction_template": "deployed via secure cloud SaaS or private VPC infrastructure"
+    }
+  ]
+}

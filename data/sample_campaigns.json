@@ -1,0 +1,41 @@
+[
+  {
+    "id": "sample-1",
+    "title": "🚨 Flagship Launch Copy (High Brand & Claim Violations)",
+    "description": "Exhibits hallucinated 100% uptime, unsupported 10x ROI promises, aggressive tone, and trademark casing errors.",
+    "format": "text",
+    "content": "Introducing the all-new inkloomAI release powered by Aegis Brand! Our cheap revolutionary miracle tool crushes competitors by delivering infallible 100% uptime that never fails under any condition. Marketing teams get a guaranteed 10x ROI within 48 hours without lifting a finger. Stop wasting time with outdated competitors and switch to the undisputed king of brand governance today.",
+    "attached_visual": {
+      "filename": "hero_banner_draft.png",
+      "colors_detected": ["#FF0055", "#0F172A", "#FFFFFF"],
+      "logo_aspect_ratio": 1.34,
+      "has_alt_text": false
+    }
+  },
+  {
+    "id": "sample-2",
+    "title": "⚠️ Social Carousel Draft (Terminology & Accessibility Drift)",
+    "description": "Mild violations: contains deprecated branding, off-palette color usage, and insufficient contrast.",
+    "format": "text",
+    "content": "Discover how inkloomAI helps modern marketing leaders safeguard their assets. By automating repetitive proofreading, teams scale publication velocity while eliminating cheap off-brand errors. Check out our SOC2 Type II compliance report to learn how we protect your confidential creative files.",
+    "attached_visual": {
+      "filename": "social_carousel_slide1.png",
+      "colors_detected": ["#4F46E5", "#FFFF00", "#FFFFFF"],
+      "logo_aspect_ratio": 1.02,
+      "has_alt_text": true
+    }
+  },
+  {
+    "id": "sample-3",
+    "title": "✅ Enterprise Security Whitepaper (Fully Brand Compliant)",
+    "description": "Clean, authoritative tone, verified metrics, proper trademark nomenclature, and verified claims.",
+    "format": "text",
+    "content": "Inkloom AI is proud to announce that AegisBrand OS has achieved audited SOC2 Type II certification and ISO 27001 compliance. Trusted by over 1,200+ growing organizations, our platform delivers 99.9% verified uptime backed by enterprise SLAs. By pairing intelligent multimodal guardrails with sovereign human oversight, we help organizations accelerate review velocity by up to 95% without compromising brand integrity.",
+    "attached_visual": {
+      "filename": "security_badge_verified.png",
+      "colors_detected": ["#4F46E5", "#0F172A", "#FFFFFF"],
+      "logo_aspect_ratio": 1.0,
+      "has_alt_text": true
+    }
+  }
+]

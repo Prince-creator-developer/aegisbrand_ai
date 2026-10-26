@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisBrand AI — Pre-Publication Brand Governance Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-700 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-heading font-extrabold text-xl text-slate-900 tracking-tight">AegisBrand<span class="text-indigo-600"> AI</span></span>
+                        <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full">Inkloom PS • Round 2</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 hidden sm:block">Intelligent Pre-Publication Brand Governance & Claim Grounding Engine</p>
+                </div>
+            </div>
+
+            <!-- Quick Controls for Judges -->
+            <div class="flex items-center gap-3">
+                <!-- Sample Content Loader -->
+                <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs shadow-sm">
+                    <i class="fa-solid fa-flask-vial text-indigo-600"></i>
+                    <select id="sample-selector" class="bg-transparent font-medium text-slate-700 focus:outline-none cursor-pointer">
+                        <option value="">Loading test samples...</option>
+                    </select>
+                </div>
+
+                <!-- Active Role Toggle -->
+                <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs shadow-sm">
+                    <i class="fa-solid fa-user-shield text-emerald-600"></i>
+                    <select id="role-selector" class="bg-transparent font-medium text-slate-700 focus:outline-none cursor-pointer">
+                        <option value="creator">Role: Content Creator</option>
+                        <option value="manager">Role: Brand Manager</option>
+                        <option value="legal">Role: Legal / Compliance</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs Bar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100 flex gap-6 text-sm">
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-indigo-600 text-indigo-600 font-bold transition flex items-center gap-2" data-tab="studio">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Pre-Publish Review Studio
+            </button>
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-2" data-tab="workflow">
+                <i class="fa-solid fa-code-pull-request"></i> Review & Approval Queue
+                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">Active</span>
+            </button>
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-2" data-tab="knowledge">
+                <i class="fa-solid fa-book-journal-whills"></i> Brand Knowledge Hub
+            </button>
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-2" data-tab="analytics">
+                <i class="fa-solid fa-chart-pie"></i> Governance Insights & Ambiguity
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ============================================================== -->
+        <!-- TAB 1: PRE-PUBLISH REVIEW STUDIO (CORE PRODUCT JOURNEY) -->
+        <!-- ============================================================== -->
+        <section id="tab-studio" class="tab-content-panel grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Left Column: Input Editor & Assets (5 Cols) -->
+            <div class="lg:col-span-5 flex flex-col gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col flex-1">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                        <div>
+                            <h2 class="font-heading font-bold text-slate-900 text-base">Content Under Review</h2>
+                            <p class="text-xs text-slate-500">Paste drafted copy, social caption, or press release.</p>
+                        </div>
+                        <span id="active-role-display" class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full font-semibold border border-indigo-200">
+                            Creator Mode
+                        </span>
+                    </div>
+
+                    <!-- Text Input Area -->
+                    <div class="mt-3 flex-1 flex flex-col">
+                        <textarea id="content-input" rows="9" class="w-full flex-1 p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-mono text-xs text-slate-800 leading-relaxed focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition resize-y" placeholder="Type or paste draft copy to intercept before publication..."></textarea>
+                    </div>
+
+                    <!-- Visual Asset Metadata Pill -->
+                    <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <div class="text-xs text-slate-500 flex items-center gap-1.5">
+                            <i class="fa-solid fa-paperclip"></i> Visual Asset Attached:
+                        </div>
+                        <div id="visual-attachment-display">
+                            <span class="text-xs text-slate-400 italic">No asset attached</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-4 flex items-center gap-2">
+                        <button id="btn-run-audit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-sm shadow-indigo-200 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-bolt"></i> Run Brand Guardrail Audit
+                        </button>
+                        <button id="btn-submit-workflow" class="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-share-from-square"></i> Submit to Queue
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Explanation Banner: Why Intent-Preserving Diffs Matter -->
+                <div class="bg-indigo-50/60 border border-indigo-200/80 rounded-2xl p-4 text-xs text-slate-600">
+                    <div class="font-bold text-indigo-900 mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-indigo-600"></i> The Intent-Preserving Difference
+                    </div>
+                    <p class="leading-relaxed">
+                        Generic linters simply reject or rewrite entire sentences, destroying the creator's voice. AegisBrand isolates the <em>minimal non-compliant span</em> and substitutes verified claims and compliant phrasing while preserving 90%+ of the author's tone and structure.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Audit Findings & Explainable Diffs (7 Cols) -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+                
+                <!-- Score & Health Summary Card -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-5">
+                        <div id="score-circle-container" class="flex items-center justify-center w-24 h-24 rounded-full border-4 border-slate-300 bg-slate-50 text-slate-700 transition">
+                            <div class="text-center">
+                                <span id="compliance-score-val" class="font-heading font-black text-3xl leading-none">--</span>
+                                <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">Score</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-heading font-bold text-slate-900 text-lg">Brand Health Index</h3>
+                                <span id="status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600">
+                                    Awaiting Inspection
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Multi-dimensional assessment against approved Brand Bible & verified claims.</p>
+                            <div class="flex items-center gap-3 text-xs mt-2 font-mono">
+                                <span class="text-slate-600">Total: <strong id="total-issues-count">0</strong></span>
+                                <span class="text-rose-600 font-bold">Critical: <span id="critical-count">0</span></span>
+                                <span class="text-amber-600 font-bold">Warnings: <span id="warning-count">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dimensional Tone Health Bars -->
+                    <div class="w-full sm:w-56 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+                        <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-2">Dimensional Tone Fit</div>
+                        
+                        <div class="mb-1.5">
+                            <div class="flex justify-between text-[10px] text-slate-600"><span>Authority</span><span id="val-authority">--</span></div>
+                            <div class="w-full bg-slate-200 rounded-full h-1.5"><div id="bar-authority" class="bg-indigo-600 h-1.5 rounded-full" style="width: 0%"></div></div>
+                        </div>
+                        <div class="mb-1.5">
+                            <div class="flex justify-between text-[10px] text-slate-600"><span>Approachability</span><span id="val-approachability">--</span></div>
+                            <div class="w-full bg-slate-200 rounded-full h-1.5"><div id="bar-approachability" class="bg-cyan-600 h-1.5 rounded-full" style="width: 0%"></div></div>
+                        </div>
+                        <div class="mb-1.5">
+                            <div class="flex justify-between text-[10px] text-slate-600"><span>Claim Grounding</span><span id="val-claims">--</span></div>
+                            <div class="w-full bg-slate-200 rounded-full h-1.5"><div id="bar-claims" class="bg-emerald-600 h-1.5 rounded-full" style="width: 0%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[10px] text-slate-600"><span>Visual & WCAG</span><span id="val-visual">--</span></div>
+                            <div class="w-full bg-slate-200 rounded-full h-1.5"><div id="bar-visual" class="bg-purple-600 h-1.5 rounded-full" style="width: 0%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Findings Header -->
+                <div class="flex items-center justify-between">
+                    <h3 class="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-600"></i> Flagged Items & Actionable Diffs
+                    </h3>
+                    <span class="text-xs text-slate-500">Click <strong>Adopt Suggestion</strong> to apply fix inline</span>
+                </div>
+
+                <!-- Scrollable Issues Container -->
+                <div id="issues-container" class="space-y-3 max-h-[620px] overflow-y-auto pr-1">
+                    <!-- Issue cards populated dynamically via app.js -->
+                    <div class="p-8 text-center bg-white border border-slate-200 rounded-2xl">
+                        <i class="fa-solid fa-magnifying-glass text-slate-300 text-3xl mb-2"></i>
+                        <p class="text-xs text-slate-400">Run an audit to see detailed brand compliance findings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- TAB 2: REVIEW & APPROVAL WORKFLOW QUEUE -->
+        <!-- ============================================================== -->
+        <section id="tab-workflow" class="tab-content-panel hidden space-y-4">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <h2 class="font-heading font-bold text-slate-900 text-lg">Collaborative Review & Approval Workflow</h2>
+                        <p class="text-xs text-slate-500">Human-in-the-loop decisioning: Creators submit, Managers verify citations, and approved drafts receive SHA-256 non-repudiation fingerprints.</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="px-2.5 py-1 rounded-full font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                            <i class="fa-solid fa-fingerprint mr-1"></i> SHA-256 Enabled
+                        </span>
+                        <span class="px-2.5 py-1 rounded-full font-bold bg-indigo-100 text-indigo-800 border border-indigo-300">
+                            RBAC Active
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Workflow Queue Submissions List -->
+                <div id="workflow-list-container" class="mt-6">
+                    <!-- Injected dynamically via app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- TAB 3: BRAND KNOWLEDGE HUB -->
+        <!-- ============================================================== -->
+        <section id="tab-knowledge" class="tab-content-panel hidden space-y-6">
+            
+            <!-- Prohibited Lexicon & Terminology -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+                    <div>
+                        <h2 class="font-heading font-bold text-slate-900 text-lg">Restricted Terminology & Negative Lexicon</h2>
+                        <p class="text-xs text-slate-500">Keywords and phrases that dilute brand value, trigger regulatory fines, or use incorrect capitalization.</p>
+                    </div>
+                    <span class="text-xs font-mono text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Single Source of Truth</span>
+                </div>
+
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-[11px] font-bold uppercase text-slate-600 border-b border-slate-200">
+                                <th class="p-2.5">Prohibited Term</th>
+                                <th class="p-2.5">Risk / Reason</th>
+                                <th class="p-2.5">Guideline Reference</th>
+                                <th class="p-2.5">Approved Alternative</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prohibited-terms-list">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add Term Form -->
+                <form id="form-add-term" class="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-4 gap-2">
+                    <input id="new-term-text" type="text" placeholder="Prohibited Term (e.g. unbeatable)" required class="p-2 text-xs border rounded bg-slate-50">
+                    <input id="new-term-reason" type="text" placeholder="Risk Reason" required class="p-2 text-xs border rounded bg-slate-50">
+                    <input id="new-term-ref" type="text" placeholder="Guideline Reference" required class="p-2 text-xs border rounded bg-slate-50">
+                    <div class="flex gap-2">
+                        <input id="new-term-sugg" type="text" placeholder="Suggested Fix" required class="flex-1 p-2 text-xs border rounded bg-slate-50">
+                        <button type="submit" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-bold">+ Add</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Verified Claims & Audited Facts -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="pb-4 border-b border-slate-200">
+                    <h2 class="font-heading font-bold text-slate-900 text-lg">Ground Truth: Audited Factual Claims Database</h2>
+                    <p class="text-xs text-slate-500">Every factual, SLA, and customer metric must be backed by an audited evidence source to prevent hallucinated marketing claims.</p>
+                </div>
+
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-[11px] font-bold uppercase text-slate-600 border-b border-slate-200">
+                                <th class="p-2.5">Claim ID</th>
+                                <th class="p-2.5">Topic</th>
+                                <th class="p-2.5">Approved Verifiable Statement</th>
+                                <th class="p-2.5">Audited Evidence Source</th>
+                            </tr>
+                        </thead>
+                        <tbody id="verified-claims-list">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- TAB 4: GOVERNANCE INSIGHTS & AMBIGUITY DIAGNOSTIC -->
+        <!-- ============================================================== -->
+        <section id="tab-analytics" class="tab-content-panel hidden space-y-6">
+            
+            <!-- Executive Metrics -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-[11px] font-bold text-slate-500 uppercase">Enterprise Health</div>
+                    <div id="stat-health-score" class="font-heading font-black text-2xl text-emerald-600 mt-1">--</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Across all publish channels</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-[11px] font-bold text-slate-500 uppercase">Total Assets Audited</div>
+                    <div id="stat-total-audited" class="font-heading font-black text-2xl text-indigo-600 mt-1">--</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Decks, copy, social carousels</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-[11px] font-bold text-slate-500 uppercase">Violations Intercepted</div>
+                    <div id="stat-interceptions" class="font-heading font-black text-2xl text-rose-600 mt-1">--</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Pre-publication intercepts</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="text-[11px] font-bold text-slate-500 uppercase">Review Turnaround</div>
+                    <div id="stat-latency" class="font-heading font-black text-2xl text-cyan-600 mt-1">--</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">vs 48 hrs manual baseline</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Category Breakdown -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-slate-900 text-base mb-1">Violation Categories Breakdown</h3>
+                    <p class="text-xs text-slate-500 mb-4">Distribution of brand non-compliance across enterprise departments.</p>
+                    <div id="analytics-categories-container"></div>
+                </div>
+
+                <!-- Recurring Mistakes Leaderboard -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-slate-900 text-base mb-1">Top Recurring Mistakes</h3>
+                    <p class="text-xs text-slate-500 mb-4">Most frequently flagged violations across distributed creator teams.</p>
+                    <div id="recurring-mistakes-container"></div>
+                </div>
+            </div>
+
+            <!-- Self-Healing Ambiguity Diagnostic (Inkloom PS Requirement) -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Self-Healing Guideline Ambiguity Diagnostic
+                        </h3>
+                        <p class="text-xs text-slate-500">Identifies areas where the brand guidelines are unclear by tracking manager overrides and creator disputes, recommending precise amendments.</p>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded bg-amber-100 text-amber-800 border border-amber-300">
+                        Self-Healing Loop Active
+                    </span>
+                </div>
+                <div id="ambiguous-guidelines-container"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+            <div>
+                <strong>AegisBrand AI</strong> • Developed for <strong>CodeStar 30 (Round 2: The Build)</strong>
+            </div>
+            <div class="flex items-center gap-4 font-mono text-[11px]">
+                <span>Team: <strong>PRINCE OF VALERIA</strong></span>
+                <span>Lead: <strong>Prince Kumar</strong></span>
+                <span>Engine: <strong>FastAPI + Multi-Agent Guardrails</strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Script -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
