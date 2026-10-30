@@ -85,6 +85,27 @@
         </div>
     </header>
 
+    <!-- Evaluator Interactive Quick-Tour Banner -->
+    <div id="evaluator-tour-banner" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border-b border-indigo-500/30 px-4 py-2.5 sm:px-8 shadow-inner">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2.5">
+                <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded font-mono text-[10px] tracking-wider uppercase flex items-center gap-1 shadow-sm">
+                    <i class="fa-solid fa-trophy text-amber-900"></i> Top 50 Finalist
+                </span>
+                <span class="text-slate-200">Evaluating <strong>PRINCE OF VALERIA</strong>? Test all 3 delivered improvements in under 60 seconds:</span>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+                <button id="btn-start-tour" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1.5 shadow-sm shadow-indigo-500/30">
+                    <i class="fa-solid fa-play text-[10px]"></i> 1-Click Guided Demo
+                </button>
+                <a href="/AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs transition border border-slate-700 flex items-center gap-1">
+                    <i class="fa-solid fa-file-pdf text-rose-400"></i> View Round 3 PDF
+                </a>
+                <button id="btn-dismiss-tour" class="text-slate-400 hover:text-white px-1.5 py-1" title="Dismiss banner"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Workspace Container -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
 
@@ -135,9 +156,10 @@
                         
                         <div id="visual-inspector-box" class="visual-mock-container p-3 flex flex-col gap-2">
                             <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-7 h-7 rounded bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs">
-                                        <i class="fa-solid fa-file-image"></i>
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm overflow-hidden border border-indigo-200 shadow-2xs">
+                                        <img id="visual-thumbnail" src="" class="hidden w-full h-full object-cover" alt="Thumbnail">
+                                        <i id="visual-icon-placeholder" class="fa-solid fa-file-image"></i>
                                     </div>
                                     <div>
                                         <div id="visual-filename" class="font-mono text-xs font-bold text-slate-800">hero_banner_draft.png</div>
@@ -167,13 +189,23 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="mt-4 flex items-center gap-2">
-                        <button id="btn-run-audit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-sm shadow-indigo-200 flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-bolt"></i> Run Brand Guardrail Audit
-                        </button>
-                        <button id="btn-submit-workflow" class="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-share-from-square"></i> Submit to Queue
-                        </button>
+                    <div class="mt-4 flex flex-col gap-2">
+                        <div class="flex items-center gap-2">
+                            <button id="btn-run-audit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-sm shadow-indigo-200 flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-bolt"></i> Run Brand Guardrail Audit
+                            </button>
+                            <button id="btn-submit-workflow" class="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-share-from-square"></i> Submit to Queue
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="btn-copy-clean" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-copy text-indigo-600"></i> Copy Repaired Copy
+                            </button>
+                            <button id="btn-export-json" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-file-arrow-down text-emerald-600"></i> Export Audit Certificate
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -287,32 +319,54 @@
                         </div>
                         <p class="text-xs text-slate-500 mt-1">Interception directly inside the creator's natural authoring environment. Copywriters type freely while AegisBrand highlights violations with real-time squiggly underlines and hovering inline popovers.</p>
                     </div>
-                    <a href="https://github.com/Prince-creator-developer/aegisbrand_ai/tree/main/extension" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-puzzle-piece"></i> Inspect Chrome Extension Files
-                    </a>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+                            <span class="pulse-dot"></span> Sentinel: Live Typing Interception
+                        </span>
+                        <a href="https://github.com/Prince-creator-developer/aegisbrand_ai/tree/main/extension" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-puzzle-piece"></i> Inspect Chrome Extension Files
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Simulated Google Docs Document Window -->
-                <div class="mt-6 bg-slate-100 p-4 sm:p-6 rounded-2xl border border-slate-300">
-                    <!-- Google Docs Fake Toolbar -->
+                <!-- Environment Switcher Pills -->
+                <div class="mt-4 flex items-center gap-2 text-xs">
+                    <span class="text-slate-400 font-medium">Authoring Host:</span>
+                    <button class="insitu-env-btn px-3 py-1 rounded-lg bg-indigo-600 text-white font-bold transition shadow-xs" data-env="gdocs">
+                        <i class="fa-solid fa-file-lines text-blue-300 mr-1"></i> Google Docs
+                    </button>
+                    <button class="insitu-env-btn px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition border border-slate-200" data-env="notion">
+                        <i class="fa-solid fa-book-bookmark text-slate-700 mr-1"></i> Notion
+                    </button>
+                    <button class="insitu-env-btn px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition border border-slate-200" data-env="figma">
+                        <i class="fa-brands fa-figma text-purple-600 mr-1"></i> Figma
+                    </button>
+                    <button class="insitu-env-btn px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition border border-slate-200" data-env="gmail">
+                        <i class="fa-solid fa-envelope text-red-500 mr-1"></i> Gmail Composer
+                    </button>
+                </div>
+
+                <!-- Simulated Document Window -->
+                <div class="mt-4 bg-slate-100 p-4 sm:p-6 rounded-2xl border border-slate-300 shadow-inner">
+                    <!-- Fake Host Application Toolbar -->
                     <div class="bg-white rounded-t-xl border border-slate-200 p-2.5 flex items-center justify-between text-xs text-slate-600 shadow-2xs">
                         <div class="flex items-center gap-3">
-                            <span class="font-bold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-file-lines text-blue-500"></i> Untitled Campaign Document</span>
+                            <span id="insitu-doc-title" class="font-bold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-file-lines text-blue-500"></i> Untitled Campaign Document</span>
                             <span class="text-slate-300">|</span>
-                            <span class="text-slate-400">Normal Text</span>
-                            <span class="text-slate-400 font-bold">B</span>
-                            <span class="text-slate-400 italic">I</span>
-                            <span class="text-slate-400 underline">U</span>
+                            <span class="text-slate-400 font-medium">Arial 11pt</span>
+                            <span class="text-slate-400 font-bold px-1.5 hover:text-slate-700 cursor-pointer">B</span>
+                            <span class="text-slate-400 italic px-1.5 hover:text-slate-700 cursor-pointer">I</span>
+                            <span class="text-slate-400 underline px-1.5 hover:text-slate-700 cursor-pointer">U</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-1">
-                                <i class="fa-solid fa-shield-halved"></i> AegisBrand In-Situ: Active
+                                <i class="fa-solid fa-shield-halved"></i> AegisBrand Sentinel Active
                             </span>
                         </div>
                     </div>
 
-                    <!-- Document Sheet Canvas -->
-                    <div class="bg-white rounded-b-xl border-x border-b border-slate-200 p-6 sm:p-8 min-h-[320px] shadow-sm relative font-sans leading-relaxed text-sm text-slate-800">
+                    <!-- Interactive Document Canvas -->
+                    <div id="insitu-doc-canvas" contenteditable="true" class="bg-white rounded-b-xl border-x border-b border-slate-200 p-6 sm:p-8 min-h-[320px] shadow-sm relative font-sans leading-relaxed text-sm text-slate-800 focus:outline-none">
                         <p class="mb-4 text-base font-bold text-slate-900">Q4 Enterprise Product Launch Campaign Draft</p>
                         
                         <p class="mb-4">
@@ -358,6 +412,11 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="mt-2 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+                        <span><i class="fa-solid fa-keyboard mr-1 text-slate-400"></i> Canvas is live and editable — click squiggly text to inspect or type freely</span>
+                        <button id="btn-reset-insitu" class="text-indigo-600 hover:text-indigo-800 font-semibold"><i class="fa-solid fa-rotate-left mr-1"></i> Reset Sample Text</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -375,15 +434,67 @@
                         </div>
                         <p class="text-xs text-slate-500 mt-1">Cross-scans disparate departmental documentation (Sales Pitch Decks, Legal Terms of Service, Engineering SLA Specs, Brand Guides) to detect contradictory policies and generate AI-harmonized consensus rules.</p>
                     </div>
-                    <button id="btn-scan-conflicts" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-arrows-rotate"></i> Re-Scan Cross-Dept Documents
-                    </button>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button id="btn-open-add-doc" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus text-amber-400"></i> Ingest Custom Policy
+                        </button>
+                        <button id="btn-scan-conflicts" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-arrows-rotate"></i> Re-Scan Cross-Dept Documents
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cross-Department Alignment Matrix Summary -->
+                <div class="mt-4">
+                    <h3 class="font-heading font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-table-cells text-indigo-600"></i> Cross-Department Alignment Matrix
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left border-collapse bg-slate-50/80 rounded-xl overflow-hidden border border-slate-200">
+                            <thead>
+                                <tr class="bg-slate-100 text-[11px] font-bold uppercase text-slate-700 border-b border-slate-200">
+                                    <th class="p-3">Policy Topic</th>
+                                    <th class="p-3">Sales & GTM</th>
+                                    <th class="p-3">Engineering & Ops</th>
+                                    <th class="p-3">Legal & Compliance</th>
+                                    <th class="p-3">Brand & Marketing</th>
+                                    <th class="p-3">Reconciliation Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr>
+                                    <td class="p-3 font-bold text-slate-900">Uptime SLA & Availability</td>
+                                    <td class="p-3 text-rose-700 font-mono text-[11px]">"100% infallible uptime"</td>
+                                    <td class="p-3 text-slate-700 font-mono text-[11px]">"99.9% uptime (Sun Maint)"</td>
+                                    <td class="p-3 text-amber-700 font-mono text-[11px]">"99.9% with billing credit cap"</td>
+                                    <td class="p-3 text-slate-700 font-mono text-[11px]">"Never promise 100%"</td>
+                                    <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">Critical Conflict</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-slate-900">Support Velocity SLA</td>
+                                    <td class="p-3 text-rose-700 font-mono text-[11px]">"24/7 dedicated Zoom/Phone"</td>
+                                    <td class="p-3 text-slate-600 font-mono text-[11px]">"Standard ticketing"</td>
+                                    <td class="p-3 text-slate-700 font-mono text-[11px]">"Phone exclusive to Enterprise"</td>
+                                    <td class="p-3 text-slate-600 font-mono text-[11px]">"Tiered SLAs"</td>
+                                    <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">High Risk</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-slate-900">Data Residency & GDPR</td>
+                                    <td class="p-3 text-slate-600 font-mono text-[11px]">"Enterprise Cloud"</td>
+                                    <td class="p-3 text-amber-700 font-mono text-[11px]">"EU primary, US metadata failover"</td>
+                                    <td class="p-3 text-slate-700 font-mono text-[11px]">"GDPR compliant with DPF"</td>
+                                    <td class="p-3 text-rose-700 font-mono text-[11px]">"100% European local residency"</td>
+                                    <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">High Risk</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- Departmental Documents Ingested -->
                 <div class="mt-6">
                     <h3 class="font-heading font-bold text-slate-900 text-sm mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-folder-tree text-indigo-600"></i> Ingested Departmental Documentation (4 Sources)
+                        <i class="fa-solid fa-folder-tree text-indigo-600"></i> Ingested Departmental Documentation Sources
                     </h3>
                     <div id="conflict-docs-grid" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
                         <!-- Populated dynamically via app.js -->
@@ -398,6 +509,35 @@
                     <div id="conflicts-list-container" class="space-y-4">
                         <!-- Injected via app.js -->
                     </div>
+                </div>
+            </div>
+
+            <!-- Ingest Custom Document Modal -->
+            <div id="modal-add-doc" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+                <div class="bg-white rounded-2xl max-w-lg w-full p-6 border border-slate-200 shadow-2xl space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                        <h3 class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-file-circle-plus text-indigo-600"></i> Ingest Custom Department Policy
+                        </h3>
+                        <button id="btn-close-doc-modal" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <form id="form-custom-doc" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Department Name:</label>
+                            <input id="input-doc-dept" type="text" placeholder="e.g. Product Security or Partner GTM" required class="w-full p-2.5 bg-slate-50 border rounded-xl">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Document Title:</label>
+                            <input id="input-doc-title" type="text" placeholder="e.g. Partner Agreement 2026" required class="w-full p-2.5 bg-slate-50 border rounded-xl">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Specific Policy Claim / Statement:</label>
+                            <textarea id="input-doc-claim" rows="3" placeholder="Enter policy text to cross-audit for contradictions against existing guidelines..." required class="w-full p-2.5 bg-slate-50 border rounded-xl font-mono text-xs"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow-sm">
+                            Ingest & Run Contradiction Scanner
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -437,18 +577,41 @@
                     <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
-                            <h3 class="font-bold text-base">C2PA Cryptographic Content Credentials Manifest</h3>
+                            <div>
+                                <h3 class="font-bold text-base">C2PA Cryptographic Content Credentials Manifest</h3>
+                                <p class="text-[11px] text-slate-400">Coalition for Content Provenance and Authenticity (ISO 20066 / C2PA v1.3)</p>
+                            </div>
                         </div>
                         <button id="btn-close-c2pa" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
                     </div>
 
-                    <div class="my-4 overflow-y-auto pr-2 text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800 leading-relaxed text-emerald-300" id="c2pa-json-display">
+                    <!-- Live Interactive Tamper Sandbox Switch -->
+                    <div class="mt-3 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs">
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center gap-2 cursor-pointer font-bold text-slate-200">
+                                <input type="checkbox" id="toggle-tamper" class="rounded text-rose-500 focus:ring-rose-500 w-4 h-4 bg-slate-900 border-slate-600">
+                                <span>Simulate Rogue Post-Approval Tampering</span>
+                            </label>
+                            <span class="text-[10px] text-amber-400 font-mono font-bold bg-amber-950/70 px-2 py-0.5 rounded border border-amber-600/40">
+                                Evaluator Stress-Test
+                            </span>
+                        </div>
+                        <div id="tamper-box" class="hidden mt-2.5 pt-2 border-t border-slate-700/60">
+                            <p class="text-[11px] text-slate-400 mb-1">Modify any word below to simulate unauthorized post-sign-off modification:</p>
+                            <textarea id="tamper-content-input" rows="2" class="w-full p-2 bg-slate-950 text-rose-300 font-mono text-xs rounded-lg border border-rose-500/50 focus:outline-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Integrity Feedback Banner -->
+                    <div id="c2pa-integrity-status" class="hidden mt-2 p-3 rounded-xl text-xs font-mono"></div>
+
+                    <div class="my-3 overflow-y-auto pr-2 text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800 leading-relaxed text-emerald-300" id="c2pa-json-display">
                         <!-- Populated via JS -->
                     </div>
 
                     <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs">
-                        <span class="text-slate-400">Standard: ISO 20066 / C2PA v1.3</span>
-                        <button id="btn-verify-manifest" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex items-center gap-1.5">
+                        <span class="text-slate-400 font-mono">Standard: ISO 20066 / C2PA v1.3</span>
+                        <button id="btn-verify-manifest" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-circle-check"></i> Verify Digital Signature & Integrity
                         </button>
                     </div>
@@ -468,7 +631,12 @@
                         <h2 class="font-heading font-bold text-slate-900 text-lg">Approved Visual Identity & Color Palette</h2>
                         <p class="text-xs text-slate-500">Mathematical design tokens verified for WCAG 2.2 AA accessibility and brand cohesion.</p>
                     </div>
-                    <span class="text-xs font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded">Visual Kit v2.4</span>
+                    <div class="flex items-center gap-2">
+                        <button id="btn-export-bible" class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition flex items-center gap-1">
+                            <i class="fa-solid fa-download text-indigo-600"></i> Export Brand Bible JSON
+                        </button>
+                        <span class="text-xs font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded">Visual Kit v2.4</span>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-4" id="brand-palette-grid">
@@ -497,12 +665,15 @@
 
             <!-- Prohibited Lexicon & Terminology -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
                     <div>
                         <h2 class="font-heading font-bold text-slate-900 text-lg">Restricted Terminology & Negative Lexicon</h2>
                         <p class="text-xs text-slate-500">Keywords and phrases that dilute brand value, trigger regulatory fines, or violate trademark capitalization.</p>
                     </div>
-                    <span class="text-xs font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded">Single Source of Truth</span>
+                    <div class="flex items-center gap-2">
+                        <input id="search-terms-input" type="text" placeholder="🔍 Filter prohibited terms..." class="p-1.5 text-xs bg-slate-50 border rounded-lg w-52 focus:outline-none focus:border-indigo-500">
+                        <span class="text-xs font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-1 rounded">Single Source of Truth</span>
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto mt-4">
@@ -535,12 +706,15 @@
 
             <!-- Verified Claims & Audited Facts Database -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
                     <div>
                         <h2 class="font-heading font-bold text-slate-900 text-lg">Ground Truth: Audited Factual Claims Database</h2>
                         <p class="text-xs text-slate-500">Every factual, SLA, and customer metric must be backed by an audited evidence source to prevent hallucinated marketing claims.</p>
                     </div>
-                    <span class="text-xs font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded font-bold">Audit Verified</span>
+                    <div class="flex items-center gap-2">
+                        <input id="search-claims-input" type="text" placeholder="🔍 Filter verified claims..." class="p-1.5 text-xs bg-slate-50 border rounded-lg w-52 focus:outline-none focus:border-indigo-500">
+                        <span class="text-xs font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded font-bold">Audit Verified</span>
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto mt-4">
@@ -548,6 +722,29 @@
                         <thead>
                             <tr class="bg-slate-50 text-[11px] font-bold uppercase text-slate-600 border-b border-slate-200">
                                 <th class="p-2.5">Claim ID</th>
+                                <th class="p-2.5">Topic</th>
+                                <th class="p-2.5">Approved Verifiable Statement</th>
+                                <th class="p-2.5">Audited Evidence Source</th>
+                            </tr>
+                        </thead>
+                        <tbody id="verified-claims-list">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add Claim Form -->
+                <form id="form-add-claim" class="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-4 gap-2">
+                    <input id="new-claim-id" type="text" placeholder="Claim ID (e.g. CLM-006)" required class="p-2 text-xs border rounded-lg bg-slate-50">
+                    <input id="new-claim-topic" type="text" placeholder="Topic (e.g. Retention Rate)" required class="p-2 text-xs border rounded-lg bg-slate-50">
+                    <input id="new-claim-statement" type="text" placeholder="Audited Statement" required class="p-2 text-xs border rounded-lg bg-slate-50">
+                    <div class="flex gap-2">
+                        <input id="new-claim-source" type="text" placeholder="Evidence Source" required class="flex-1 p-2 text-xs border rounded-lg bg-slate-50">
+                        <button type="submit" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm">+ Add</button>
+                    </div>
+                </form>
+            </div>
+        </section>
                                 <th class="p-2.5">Topic</th>
                                 <th class="p-2.5">Approved Verifiable Statement</th>
                                 <th class="p-2.5">Audited Evidence Source</th>
