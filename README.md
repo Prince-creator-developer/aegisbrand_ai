@@ -61,7 +61,7 @@ A judge can test every core feature and all three Round 3 improvements immediate
 2. Sample 1 is auto-loaded in the editor with typical violations (unverified 100% uptime, combative tone, off-brand magenta graphics).
 3. Click **"Run Brand Guardrail Audit"**.
 4. Review the **0/100 Compliance Score**, dimensional tone meters, and explainable diff cards with guideline citations.
-5. Click **"Adopt All Compliant Fixes"** to see the draft instantly transform into compliant copy ($100/100$ score).
+5. Click **"Adopt All Compliant Fixes"** to see the draft instantly transform into compliant copy (100/100 score).
 
 ### Step 2: Improvement #1 (In-Situ Workspace Simulator)
 1. Switch to the **"In-Situ Workspace Extension"** tab.
