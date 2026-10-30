@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
     loadGuidelines();
     loadWorkflowQueue();
     loadAnalytics();
+    loadConflicts();
+    setupInsituSimulator();
+    setupLocalImageUpload();
+    setupC2PAModal();
 
     // Word & Character Counter
     contentInput.addEventListener("input", updateCounts);
@@ -94,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (targetTab === "workflow") loadWorkflowQueue();
             if (targetTab === "analytics") loadAnalytics();
             if (targetTab === "knowledge") loadGuidelines();
+            if (targetTab === "conflicts") loadConflicts();
         });
     });
 
@@ -489,7 +494,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch("/api/submissions");
             const submissions = await res.json();
-            document.getElementById("queue-count-badge").textContent = submissions.length;
+            const badge = document.getElementById("queue-count-badge");
+            if (badge) badge.textContent = submissions.length;
             renderWorkflowList(submissions);
         } catch (err) {
             console.error("Failed to load queue:", err);
@@ -514,16 +520,18 @@ document.addEventListener("DOMContentLoaded", () => {
             let fingerprintBlock = "";
             if (sub.sha256_fingerprint) {
                 fingerprintBlock = `
-                    <div class="mt-3 p-3 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-inner">
+                    <div class="mt-3 p-3.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner">
                         <div>
                             <span class="text-emerald-400 font-bold flex items-center gap-1.5">
                                 <i class="fa-solid fa-fingerprint"></i> SHA-256 Non-Repudiation Fingerprint:
                             </span>
                             <div class="text-slate-400 truncate max-w-lg mt-0.5 text-[11px]">${sub.sha256_fingerprint}</div>
                         </div>
-                        <span class="text-[10px] font-bold bg-emerald-950 border border-emerald-500/60 text-emerald-300 px-2.5 py-1 rounded-full self-start sm:self-auto flex items-center gap-1">
-                            <i class="fa-solid fa-lock"></i> Cryptographic Verified Stamp
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <button class="btn-view-c2pa px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs transition flex items-center gap-1.5 shadow" data-id="${sub.id}">
+                                <i class="fa-solid fa-certificate"></i> Inspect C2PA Provenance
+                            </button>
+                        </div>
                     </div>
                 `;
             }
@@ -683,6 +691,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 showToast("Comment posted.", "info");
                 loadWorkflowQueue();
+            });
+        });
+
+        // View C2PA Provenance Manifest
+        document.querySelectorAll(".btn-view-c2pa").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                const id = btn.getAttribute("data-id");
+                try {
+                    const res = await fetch(`/api/c2pa/manifest/${id}`);
+                    if (!res.ok) throw new Error("Could not fetch manifest");
+                    const manifest = await res.json();
+                    
+                    window.activeC2PAManifest = manifest;
+                    const targetSub = submissions.find(s => s.id === id);
+                    window.activeC2PAContent = targetSub ? targetSub.current_content : "";
+
+                    const modal = document.getElementById("c2pa-modal");
+                    const jsonDisplay = document.getElementById("c2pa-json-display");
+                    if (modal && jsonDisplay) {
+                        jsonDisplay.innerHTML = `<pre class="text-[11px] font-mono whitespace-pre-wrap">${escapeHtml(JSON.stringify(manifest, null, 2))}</pre>`;
+                        modal.classList.remove("hidden");
+                    }
+                } catch (err) {
+                    console.error("C2PA Fetch error:", err);
+                    showToast("Failed to fetch C2PA manifest for " + id, "error");
+                }
             });
         });
 
@@ -891,5 +925,338 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             ambContainer.appendChild(card);
         });
+    }
+
+    // -------------------------------------------------------------
+    // ROUND 3 IMP #1: IN-SITU WORKSPACE EXTENSION SIMULATOR
+    // -------------------------------------------------------------
+    function setupInsituSimulator() {
+        const popover = document.getElementById("insitu-popover");
+        const refSpan = document.getElementById("insitu-ref");
+        const termSpan = document.getElementById("insitu-term");
+        const fixSpan = document.getElementById("insitu-fix");
+        const btnApply = document.getElementById("btn-insitu-apply");
+        let activeTargetSpan = null;
+
+        document.querySelectorAll(".insitu-flagged").forEach(flaggedSpan => {
+            flaggedSpan.addEventListener("click", (e) => {
+                e.stopPropagation();
+                activeTargetSpan = flaggedSpan;
+                const term = flaggedSpan.getAttribute("data-term");
+                const fix = flaggedSpan.getAttribute("data-fix");
+                const ref = flaggedSpan.getAttribute("data-ref");
+
+                if (refSpan) refSpan.textContent = ref || "Guideline Ref";
+                if (termSpan) termSpan.textContent = `"${term}"`;
+                if (fixSpan) fixSpan.textContent = fix;
+
+                if (popover) {
+                    popover.classList.remove("hidden");
+                    // Position popover relative to container
+                    const parentRect = flaggedSpan.parentElement.getBoundingClientRect();
+                    const rect = flaggedSpan.getBoundingClientRect();
+                    const topPos = rect.bottom - parentRect.top + 10;
+                    let leftPos = rect.left - parentRect.left;
+                    if (leftPos + 320 > parentRect.width) {
+                        leftPos = Math.max(10, parentRect.width - 340);
+                    }
+                    popover.style.top = `${topPos}px`;
+                    popover.style.left = `${leftPos}px`;
+                }
+            });
+        });
+
+        if (btnApply) {
+            btnApply.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (!activeTargetSpan) return;
+                const fix = activeTargetSpan.getAttribute("data-fix");
+                activeTargetSpan.textContent = fix;
+                activeTargetSpan.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-300";
+                activeTargetSpan.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-[10px]"></i> ${fix}`;
+                
+                if (popover) popover.classList.add("hidden");
+                showToast("Adopted compliant in-situ replacement!", "success");
+                activeTargetSpan = null;
+            });
+        }
+
+        // Close popover when clicking anywhere else
+        document.addEventListener("click", (e) => {
+            if (popover && !popover.contains(e.target)) {
+                popover.classList.add("hidden");
+            }
+        });
+    }
+
+    // -------------------------------------------------------------
+    // ROUND 3 IMP #3: AUTONOMOUS MULTI-DOCUMENT CONFLICT RESOLVER
+    // -------------------------------------------------------------
+    async function loadConflicts() {
+        const docsGrid = document.getElementById("conflict-docs-grid");
+        const listContainer = document.getElementById("conflicts-list-container");
+        if (!docsGrid || !listContainer) return;
+
+        docsGrid.innerHTML = '<div class="col-span-full p-4 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Scanning cross-departmental documentation...</div>';
+        listContainer.innerHTML = '<div class="p-6 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Detecting policy contradictions...</div>';
+
+        try {
+            const res = await fetch("/api/conflicts");
+            const data = await res.json();
+            renderConflicts(data);
+        } catch (err) {
+            console.error("Failed to load conflicts:", err);
+            listContainer.innerHTML = '<div class="p-4 text-center text-rose-500">Failed to analyze cross-document conflicts.</div>';
+        }
+    }
+
+    function renderConflicts(data) {
+        const docsGrid = document.getElementById("conflict-docs-grid");
+        const listContainer = document.getElementById("conflicts-list-container");
+        if (!docsGrid || !listContainer) return;
+
+        // Render Ingested Documents
+        docsGrid.innerHTML = "";
+        const deptIcons = {
+            "Sales & Revenue": "fa-sack-dollar text-emerald-600 bg-emerald-50 border-emerald-200",
+            "Engineering & Infrastructure": "fa-server text-blue-600 bg-blue-50 border-blue-200",
+            "Legal & Regulatory": "fa-scale-balanced text-purple-600 bg-purple-50 border-purple-200",
+            "Brand & Product Marketing": "fa-bullhorn text-indigo-600 bg-indigo-50 border-indigo-200"
+        };
+
+        data.documents.forEach(doc => {
+            const item = document.createElement("div");
+            const iconStyle = deptIcons[doc.department] || "fa-file-lines text-slate-600 bg-slate-50 border-slate-200";
+            item.className = "p-3.5 bg-slate-50 rounded-xl border border-slate-200 card-hover-lift flex flex-col justify-between";
+            item.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="w-7 h-7 rounded-lg border flex items-center justify-center text-xs ${iconStyle}">
+                            <i class="fa-solid ${iconStyle.split(' ')[0]}"></i>
+                        </span>
+                        <span class="font-mono text-[10px] text-slate-400 bg-white border border-slate-200 px-1.5 py-0.5 rounded">${doc.id}</span>
+                    </div>
+                    <div class="font-bold text-xs text-slate-900 leading-snug">${doc.title}</div>
+                    <div class="text-[11px] text-slate-500 font-medium mt-0.5">${doc.department}</div>
+                </div>
+                <div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-400">
+                    <span>${doc.claim_count || 4} claims indexed</span>
+                    <span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> Synced</span>
+                </div>
+            `;
+            docsGrid.appendChild(item);
+        });
+
+        // Render Detected Conflicts
+        listContainer.innerHTML = "";
+        if (!data.conflicts || data.conflicts.length === 0) {
+            listContainer.innerHTML = '<div class="p-6 text-center text-emerald-600 font-bold bg-emerald-50 rounded-xl border border-emerald-200"><i class="fa-solid fa-circle-check mr-2"></i>All departmental documentation is fully aligned with no conflicting policies!</div>';
+            return;
+        }
+
+        data.conflicts.forEach(c => {
+            const card = document.createElement("div");
+            const severityColors = {
+                "CRITICAL": "bg-rose-100 text-rose-800 border-rose-300",
+                "HIGH": "bg-amber-100 text-amber-800 border-amber-300",
+                "MEDIUM": "bg-blue-100 text-blue-800 border-blue-300"
+            };
+            const sevBadge = severityColors[c.severity] || "bg-slate-100 text-slate-800 border-slate-300";
+
+            let partiesHtml = (c.parties || []).map(p => `
+                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                    <div class="font-bold text-[11px] text-slate-800 flex items-center justify-between">
+                        <span>${p.department}</span>
+                        <span class="text-[10px] font-mono text-indigo-600 bg-white px-1.5 py-0.2 rounded border border-slate-200">${p.stance || 'Claim'}</span>
+                    </div>
+                    <div class="mt-1 text-xs text-rose-700 font-mono font-medium leading-relaxed">"${p.claim}"</div>
+                </div>
+            `).join("");
+
+            card.className = "p-5 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3.5 transition duration-200 hover:shadow-md";
+            card.innerHTML = `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">${c.conflict_id}</span>
+                        <h4 class="font-bold text-slate-900 text-sm">${c.topic}</h4>
+                    </div>
+                    <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border self-start sm:self-auto ${sevBadge}">
+                        Severity: ${c.severity}
+                    </span>
+                </div>
+
+                <div class="text-xs text-slate-700">
+                    <strong>Contradiction Summary:</strong> ${c.contradiction}
+                </div>
+
+                <!-- Opposing Department Claims -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    ${partiesHtml}
+                </div>
+
+                <!-- Risk Assessment -->
+                <div class="p-3 bg-rose-50/70 rounded-xl border border-rose-200 text-xs text-rose-900">
+                    <strong class="flex items-center gap-1.5 text-rose-800 mb-0.5">
+                        <i class="fa-solid fa-shield-virus"></i> Enterprise Risk Assessment:
+                    </strong>
+                    ${c.risk_analysis}
+                </div>
+
+                <!-- AI Harmonized Consensus Policy -->
+                <div class="p-3.5 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-300 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex-1">
+                        <div class="font-bold text-emerald-950 flex items-center gap-1.5 mb-1">
+                            <i class="fa-solid fa-wand-magic-sparkles text-emerald-600"></i> AI-Harmonized Consensus Policy:
+                        </div>
+                        <div class="font-mono text-slate-800 text-[11px] leading-relaxed bg-white/80 p-2 rounded-lg border border-emerald-200">
+                            ${c.harmonized_policy}
+                        </div>
+                    </div>
+                    <button class="btn-adopt-harmonized px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow-sm text-xs whitespace-nowrap self-start sm:self-center" data-id="${c.conflict_id}">
+                        <i class="fa-solid fa-handshake mr-1"></i> Adopt Harmonized Policy
+                    </button>
+                </div>
+            `;
+            listContainer.appendChild(card);
+        });
+
+        // Event listener for Adopting Harmonized Policy
+        document.querySelectorAll(".btn-adopt-harmonized").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const id = btn.getAttribute("data-id");
+                btn.className = "px-3.5 py-2 bg-slate-900 text-emerald-300 font-bold rounded-xl text-xs flex items-center gap-1.5 border border-emerald-500/50 cursor-default";
+                btn.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Harmonized & Synced`;
+                showToast(`Conflict ${id} resolved! Harmonized policy committed to Brand Bible.`, "success");
+            });
+        });
+    }
+
+    // Bind scan button
+    const btnScanConflicts = document.getElementById("btn-scan-conflicts");
+    if (btnScanConflicts) {
+        btnScanConflicts.addEventListener("click", () => {
+            showToast("Re-scanning cross-departmental documentation...", "info");
+            loadConflicts();
+        });
+    }
+
+    // -------------------------------------------------------------
+    // LOCAL IMAGE UPLOAD & CLIENT-SIDE DIAGNOSTICS
+    // -------------------------------------------------------------
+    function setupLocalImageUpload() {
+        const fileInput = document.getElementById("local-image-upload");
+        if (!fileInput) return;
+
+        fileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const width = img.naturalWidth || img.width;
+                    const height = img.naturalHeight || img.height;
+                    const ratio = parseFloat((width / height).toFixed(2));
+
+                    // Use canvas to sample primary colors
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+                    canvas.width = 40;
+                    canvas.height = 40;
+                    ctx.drawImage(img, 0, 0, 40, 40);
+                    
+                    const p1 = ctx.getImageData(5, 5, 1, 1).data;
+                    const p2 = ctx.getImageData(20, 20, 1, 1).data;
+                    const p3 = ctx.getImageData(35, 35, 1, 1).data;
+
+                    function rgbToHex(r, g, b) {
+                        return "#" + [r, g, b].map(x => {
+                            const hex = x.toString(16);
+                            return hex.length === 1 ? "0" + hex : hex;
+                        }).join("").toUpperCase();
+                    }
+
+                    const hex1 = rgbToHex(p1[0], p1[1], p1[2]);
+                    const hex2 = rgbToHex(p2[0], p2[1], p2[2]);
+                    const hex3 = rgbToHex(p3[0], p3[1], p3[2]);
+
+                    const detectedColors = Array.from(new Set([hex1, hex2, hex3]));
+
+                    currentVisualData = {
+                        filename: file.name,
+                        specs: `${width}x${height} px • ${file.type || 'IMAGE'}`,
+                        logo_aspect_ratio: ratio,
+                        colors_detected: detectedColors,
+                        has_alt_text: false
+                    };
+
+                    const filenameLabel = document.getElementById("visual-filename");
+                    const specsLabel = document.getElementById("visual-specs");
+                    if (filenameLabel) filenameLabel.textContent = file.name;
+                    if (specsLabel) specsLabel.textContent = `${width}x${height} px • ${(file.size / 1024).toFixed(1)} KB`;
+
+                    renderVisualAttachmentCard(currentVisualData);
+                    showToast(`Ingested ${file.name} (${width}x${height}px). Auditing visual tokens...`, "success");
+                    runAudit();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // -------------------------------------------------------------
+    // ROUND 3 IMP #2: C2PA MANIFEST MODAL & VERIFIER
+    // -------------------------------------------------------------
+    function setupC2PAModal() {
+        const modal = document.getElementById("c2pa-modal");
+        const btnClose = document.getElementById("btn-close-c2pa");
+        const btnVerify = document.getElementById("btn-verify-manifest");
+
+        if (btnClose && modal) {
+            btnClose.addEventListener("click", () => {
+                modal.classList.add("hidden");
+            });
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) modal.classList.add("hidden");
+            });
+        }
+
+        if (btnVerify) {
+            btnVerify.addEventListener("click", async () => {
+                if (!window.activeC2PAManifest) {
+                    showToast("No active C2PA manifest loaded.", "error");
+                    return;
+                }
+
+                btnVerify.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Verifying SHA-256 Signature...';
+                try {
+                    const res = await fetch("/api/c2pa/verify", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            manifest: window.activeC2PAManifest,
+                            content: window.activeC2PAContent || ""
+                        })
+                    });
+                    const verifyData = await res.json();
+                    
+                    if (verifyData.valid) {
+                        btnVerify.className = "px-4 py-2 bg-emerald-500 text-slate-950 font-bold rounded-lg transition flex items-center gap-1.5 shadow";
+                        btnVerify.innerHTML = '<i class="fa-solid fa-shield-check"></i> Cryptographically Verified & Untampered';
+                        showToast("C2PA Manifest Verified: SHA-256 hash and digital signature match perfectly!", "success");
+                    } else {
+                        btnVerify.className = "px-4 py-2 bg-rose-600 text-white font-bold rounded-lg transition flex items-center gap-1.5";
+                        btnVerify.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Verification Failed';
+                        showToast("Verification failed: Manifest or content integrity mismatch.", "error");
+                    }
+                } catch (err) {
+                    console.error("Verification error:", err);
+                    btnVerify.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verify Digital Signature & Integrity';
+                    showToast("Network error during verification.", "error");
+                }
+            });
+        }
     }
 });

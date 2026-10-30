@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBrand AI — Pre-Publication Brand Governance Platform</title>
+    <title>AegisBrand AI — Pre-Publication Brand Governance Platform (Round 3 Finalist Edition)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -26,16 +26,18 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-heading font-extrabold text-xl text-slate-900 tracking-tight">AegisBrand<span class="text-indigo-600"> AI</span></span>
-                        <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full">Inkloom PS • Round 2</span>
+                        <span class="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-900 font-mono text-[10px] font-black px-2 py-0.5 rounded-full shadow-2xs">
+                            🏆 TOP 50 FINALIST • ROUND 3
+                        </span>
                         <span class="bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live v1.2
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> v2.0 Enterprise
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-500 hidden sm:block">Intelligent Pre-Publication Brand Governance & Claim Grounding Engine</p>
+                    <p class="text-[11px] text-slate-500 hidden sm:block">Intelligent Pre-Publication Brand Governance & Cross-Departmental Policy Harmonization</p>
                 </div>
             </div>
 
-            <!-- Quick Controls for Judges & Evaluators -->
+            <!-- Quick Controls for Evaluators -->
             <div class="flex items-center gap-2 sm:gap-3">
                 <!-- Sample Content Loader Dropdown -->
                 <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl px-2.5 py-1.5 text-xs transition shadow-sm">
@@ -57,20 +59,28 @@
             </div>
         </div>
 
-        <!-- Navigation Tabs Bar -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100 flex gap-6 text-sm">
-            <button class="nav-tab-btn py-3 px-1 border-b-2 border-indigo-600 text-indigo-600 font-bold transition flex items-center gap-2" data-tab="studio">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Pre-Publish Review Studio
+        <!-- Navigation Tabs Bar (Delivering All 3 Round 3 Improvements) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100 flex gap-4 sm:gap-6 text-xs sm:text-sm overflow-x-auto">
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-indigo-600 text-indigo-600 font-bold transition flex items-center gap-1.5 whitespace-nowrap" data-tab="studio">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Review Studio
             </button>
-            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-2" data-tab="workflow">
-                <i class="fa-solid fa-code-pull-request"></i> Review & Approval Queue
-                <span id="queue-count-badge" class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">2</span>
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-1.5 whitespace-nowrap" data-tab="insitu">
+                <i class="fa-solid fa-puzzle-piece text-indigo-500"></i> In-Situ Workspace Extension
+                <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">New Imp #1</span>
             </button>
-            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-2" data-tab="knowledge">
-                <i class="fa-solid fa-book-journal-whills"></i> Brand Knowledge Hub
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-1.5 whitespace-nowrap" data-tab="conflicts">
+                <i class="fa-solid fa-diagram-project text-amber-500"></i> Multi-Doc Conflict Resolver
+                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded-full">New Imp #3</span>
             </button>
-            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-2" data-tab="analytics">
-                <i class="fa-solid fa-chart-pie"></i> Governance Insights & Ambiguity
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-1.5 whitespace-nowrap" data-tab="workflow">
+                <i class="fa-solid fa-code-pull-request text-emerald-500"></i> Review Queue & C2PA Ledger
+                <span id="queue-count-badge" class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">0</span>
+            </button>
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-1.5 whitespace-nowrap" data-tab="knowledge">
+                <i class="fa-solid fa-book-journal-whills"></i> Knowledge Hub
+            </button>
+            <button class="nav-tab-btn py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium transition flex items-center gap-1.5 whitespace-nowrap" data-tab="analytics">
+                <i class="fa-solid fa-chart-pie"></i> Governance Insights
             </button>
         </div>
     </header>
@@ -79,11 +89,11 @@
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- ============================================================== -->
-        <!-- TAB 1: PRE-PUBLISH REVIEW STUDIO (CORE PRODUCT JOURNEY) -->
+        <!-- TAB 1: PRE-PUBLISH REVIEW STUDIO (CORE WORKFLOW) -->
         <!-- ============================================================== -->
         <section id="tab-studio" class="tab-content-panel grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-            <!-- Left Column: Content Input & Visual Inspection (5 Cols) -->
+            <!-- Left Column: Content Input & Visual Ingestion (5 Cols) -->
             <div class="lg:col-span-5 flex flex-col gap-4">
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col flex-1">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -91,11 +101,9 @@
                             <h2 class="font-heading font-bold text-slate-900 text-base">Content Under Review</h2>
                             <p class="text-xs text-slate-500">Drafted ad copy, social post, or press release.</p>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span id="active-role-display" class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full font-semibold border border-indigo-200">
-                                Creator Mode
-                            </span>
-                        </div>
+                        <span id="active-role-display" class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full font-semibold border border-indigo-200">
+                            Creator Mode
+                        </span>
                     </div>
 
                     <!-- Content Format Selector Bar -->
@@ -120,12 +128,11 @@
                     <div class="mt-3 pt-3 border-t border-slate-100">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                                <i class="fa-solid fa-image text-indigo-600"></i> Attached Campaign Visual Asset
+                                <i class="fa-solid fa-image text-indigo-600"></i> Campaign Graphic Ingestion & Diagnostics
                             </span>
                             <span id="visual-status-pill" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">Checking metadata</span>
                         </div>
                         
-                        <!-- Visual Metadata Display Box -->
                         <div id="visual-inspector-box" class="visual-mock-container p-3 flex flex-col gap-2">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
@@ -148,6 +155,14 @@
                                     <!-- Swatches injected via JS -->
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Local Image Upload Input -->
+                        <div class="mt-2.5 flex items-center gap-2">
+                            <label class="cursor-pointer flex-1 py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold text-center border border-slate-200 transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-upload text-indigo-600"></i> Upload Custom Graphic (.png, .jpg)
+                                <input type="file" id="local-image-upload" accept="image/*" class="hidden">
+                            </label>
                         </div>
                     </div>
 
@@ -229,11 +244,9 @@
 
                 <!-- Findings Header & Filter Bar -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                        <h3 class="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-indigo-600"></i> Flagged Findings & Intent Diffs
-                        </h3>
-                    </div>
+                    <h3 class="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-600"></i> Flagged Findings & Intent Diffs
+                    </h3>
                     
                     <!-- Bulk Fix Action Button -->
                     <button id="btn-bulk-adopt" class="hidden px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
@@ -253,7 +266,6 @@
 
                 <!-- Scrollable Issues Container -->
                 <div id="issues-container" class="space-y-3 max-h-[620px] overflow-y-auto pr-1">
-                    <!-- Issue cards populated dynamically via app.js -->
                     <div class="p-8 text-center bg-white border border-slate-200 rounded-2xl">
                         <i class="fa-solid fa-magnifying-glass text-slate-300 text-3xl mb-2"></i>
                         <p class="text-xs text-slate-400">Run an audit to see detailed brand compliance findings.</p>
@@ -263,18 +275,149 @@
         </section>
 
         <!-- ============================================================== -->
-        <!-- TAB 2: REVIEW & APPROVAL WORKFLOW QUEUE -->
+        <!-- TAB 2: IN-SITU WORKSPACE EXTENSION SIMULATOR (IMPROVEMENT 1) -->
+        <!-- ============================================================== -->
+        <section id="tab-insitu" class="tab-content-panel hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-heading font-bold text-slate-900 text-lg">In-Situ Workspace Brand Guardrail (Google Docs / Figma Simulator)</h2>
+                            <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Round 3: Improvement #1</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">Interception directly inside the creator's natural authoring environment. Copywriters type freely while AegisBrand highlights violations with real-time squiggly underlines and hovering inline popovers.</p>
+                    </div>
+                    <a href="https://github.com/Prince-creator-developer/aegisbrand_ai/tree/main/extension" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-puzzle-piece"></i> Inspect Chrome Extension Files
+                    </a>
+                </div>
+
+                <!-- Simulated Google Docs Document Window -->
+                <div class="mt-6 bg-slate-100 p-4 sm:p-6 rounded-2xl border border-slate-300">
+                    <!-- Google Docs Fake Toolbar -->
+                    <div class="bg-white rounded-t-xl border border-slate-200 p-2.5 flex items-center justify-between text-xs text-slate-600 shadow-2xs">
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-file-lines text-blue-500"></i> Untitled Campaign Document</span>
+                            <span class="text-slate-300">|</span>
+                            <span class="text-slate-400">Normal Text</span>
+                            <span class="text-slate-400 font-bold">B</span>
+                            <span class="text-slate-400 italic">I</span>
+                            <span class="text-slate-400 underline">U</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-1">
+                                <i class="fa-solid fa-shield-halved"></i> AegisBrand In-Situ: Active
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Document Sheet Canvas -->
+                    <div class="bg-white rounded-b-xl border-x border-b border-slate-200 p-6 sm:p-8 min-h-[320px] shadow-sm relative font-sans leading-relaxed text-sm text-slate-800">
+                        <p class="mb-4 text-base font-bold text-slate-900">Q4 Enterprise Product Launch Campaign Draft</p>
+                        
+                        <p class="mb-4">
+                            We are excited to unveil our latest capabilities designed for fast-growing enterprise marketing teams. 
+                            Our platform delivers 
+                            <span class="insitu-flagged relative cursor-pointer border-b-2 border-wavy border-rose-500 bg-rose-50/50 font-bold text-rose-700 px-1 rounded" data-term="infallible 100% uptime" data-fix="enterprise-grade 99.9% verified uptime backed by SLA" data-ref="Claims Guide Sec 4.2">
+                                infallible 100% uptime
+                            </span>
+                            that ensures your mission-critical pipelines never drop a single packet.
+                        </p>
+
+                        <p class="mb-4">
+                            Unlike legacy alternatives, our 
+                            <span class="insitu-flagged relative cursor-pointer border-b-2 border-wavy border-amber-500 bg-amber-50/50 font-bold text-amber-800 px-1 rounded" data-term="cheap revolutionary tool" data-fix="cost-effective groundbreaking platform" data-ref="Stylebook Sec 3.4">
+                                cheap revolutionary tool
+                            </span>
+                            <span class="insitu-flagged relative cursor-pointer border-b-2 border-wavy border-rose-500 bg-rose-50/50 font-bold text-rose-700 px-1 rounded" data-term="crushes competitors" data-fix="outperforms industry benchmarks" data-ref="Tone Guide Sec 2.1">
+                                crushes competitors
+                            </span>
+                            by providing 
+                            <span class="insitu-flagged relative cursor-pointer border-b-2 border-wavy border-rose-500 bg-rose-50/50 font-bold text-rose-700 px-1 rounded" data-term="guaranteed 10x ROI" data-fix="proven up to 10x ROI in audited case studies" data-ref="Advertising Code Sec 4.1">
+                                guaranteed 10x ROI
+                            </span>
+                            in under 48 hours.
+                        </p>
+
+                        <!-- Simulated In-Situ Floating Popover (Appears on click of any squiggly term) -->
+                        <div id="insitu-popover" class="hidden absolute z-30 bg-slate-900 text-white rounded-xl p-3 shadow-xl border border-indigo-400 w-80 text-xs transition duration-200">
+                            <div class="flex items-center justify-between pb-1.5 border-b border-slate-700">
+                                <span class="font-bold text-indigo-400 flex items-center gap-1">
+                                    <i class="fa-solid fa-shield-halved"></i> In-Situ Brand Guardrail
+                                </span>
+                                <span id="insitu-ref" class="text-[10px] text-slate-400 font-mono">Sec 4.2</span>
+                            </div>
+                            <div class="mt-2 text-slate-300">
+                                <span class="text-rose-400 font-bold">Violating Claim:</span> <span id="insitu-term" class="line-through text-slate-400">--</span>
+                            </div>
+                            <div class="mt-2 p-2 bg-slate-800 rounded-lg text-emerald-400 font-mono text-[11px] border border-slate-700">
+                                <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> <span id="insitu-fix">--</span>
+                            </div>
+                            <button id="btn-insitu-apply" class="mt-2.5 w-full py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold text-xs transition">
+                                Adopt Fix Inline
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- TAB 3: MULTI-DOC CONFLICT RESOLVER (IMPROVEMENT 3) -->
+        <!-- ============================================================== -->
+        <section id="tab-conflicts" class="tab-content-panel hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-heading font-bold text-slate-900 text-lg">Autonomous Multi-Document Guideline Conflict Resolver</h2>
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Round 3: Improvement #3</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">Cross-scans disparate departmental documentation (Sales Pitch Decks, Legal Terms of Service, Engineering SLA Specs, Brand Guides) to detect contradictory policies and generate AI-harmonized consensus rules.</p>
+                    </div>
+                    <button id="btn-scan-conflicts" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-arrows-rotate"></i> Re-Scan Cross-Dept Documents
+                    </button>
+                </div>
+
+                <!-- Departmental Documents Ingested -->
+                <div class="mt-6">
+                    <h3 class="font-heading font-bold text-slate-900 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-folder-tree text-indigo-600"></i> Ingested Departmental Documentation (4 Sources)
+                    </h3>
+                    <div id="conflict-docs-grid" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+                        <!-- Populated dynamically via app.js -->
+                    </div>
+                </div>
+
+                <!-- Detected Contradictions & Harmonized Policies -->
+                <div class="mt-6">
+                    <h3 class="font-heading font-bold text-slate-900 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-500"></i> Detected Policy Contradictions & AI-Harmonized Consensus
+                    </h3>
+                    <div id="conflicts-list-container" class="space-y-4">
+                        <!-- Injected via app.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- TAB 4: REVIEW QUEUE & C2PA CRYPTOGRAPHIC LEDGER (IMPROVEMENT 2) -->
         <!-- ============================================================== -->
         <section id="tab-workflow" class="tab-content-panel hidden space-y-4">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
                     <div>
-                        <h2 class="font-heading font-bold text-slate-900 text-lg">Collaborative Review & Approval Workflow</h2>
-                        <p class="text-xs text-slate-500">Human-in-the-loop decisioning: Creators submit, Managers verify citations, and approved drafts receive SHA-256 non-repudiation fingerprints.</p>
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-heading font-bold text-slate-900 text-lg">Collaborative Review & Approval Workflow (C2PA Ledger)</h2>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Round 3: Improvement #2</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">Human-in-the-loop governance with Coalition for Content Provenance and Authenticity (C2PA v1.3) cryptographic manifests, SHA-256 fingerprinting, and non-repudiation audit ledgers.</p>
                     </div>
                     <div class="flex items-center gap-2 text-xs">
                         <span class="px-2.5 py-1 rounded-full font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
-                            <i class="fa-solid fa-fingerprint"></i> SHA-256 Ledger
+                            <i class="fa-solid fa-certificate"></i> C2PA v1.3 Ready
                         </span>
                         <span class="px-2.5 py-1 rounded-full font-bold bg-indigo-100 text-indigo-800 border border-indigo-300">
                             RBAC Active
@@ -287,10 +430,34 @@
                     <!-- Injected dynamically via app.js -->
                 </div>
             </div>
+
+            <!-- C2PA Manifest Modal / Inspector Container -->
+            <div id="c2pa-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+                <div class="bg-slate-900 text-white rounded-2xl max-w-2xl w-full p-6 border border-slate-700 shadow-2xl flex flex-col max-h-[85vh]">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
+                            <h3 class="font-bold text-base">C2PA Cryptographic Content Credentials Manifest</h3>
+                        </div>
+                        <button id="btn-close-c2pa" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+
+                    <div class="my-4 overflow-y-auto pr-2 text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800 leading-relaxed text-emerald-300" id="c2pa-json-display">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs">
+                        <span class="text-slate-400">Standard: ISO 20066 / C2PA v1.3</span>
+                        <button id="btn-verify-manifest" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Verify Digital Signature & Integrity
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ============================================================== -->
-        <!-- TAB 3: BRAND KNOWLEDGE HUB -->
+        <!-- TAB 5: BRAND KNOWLEDGE HUB -->
         <!-- ============================================================== -->
         <section id="tab-knowledge" class="tab-content-panel hidden space-y-6">
             
@@ -406,7 +573,7 @@
         </section>
 
         <!-- ============================================================== -->
-        <!-- TAB 4: GOVERNANCE INSIGHTS & AMBIGUITY DIAGNOSTIC -->
+        <!-- TAB 6: GOVERNANCE INSIGHTS & AMBIGUITY DIAGNOSTIC -->
         <!-- ============================================================== -->
         <section id="tab-analytics" class="tab-content-panel hidden space-y-6">
             
@@ -473,12 +640,12 @@
     <footer class="bg-white border-t border-slate-200 py-4 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
             <div>
-                <strong>AegisBrand AI</strong> • Developed for <strong>CodeStar 30 (Round 2: The Build)</strong>
+                <strong>AegisBrand AI</strong> • Developed for <strong>CodeStar 30 (Round 3 Finalist Edition)</strong>
             </div>
             <div class="flex items-center gap-4 font-mono text-[11px]">
                 <span>Team: <strong>PRINCE OF VALERIA</strong></span>
                 <span>Lead: <strong>Prince Kumar</strong></span>
-                <span>Engine: <strong>FastAPI + Multi-Agent Guardrails</strong></span>
+                <span>Engine: <strong>FastAPI + Multi-Agent Guardrails + C2PA v1.3</strong></span>
             </div>
         </div>
     </footer>

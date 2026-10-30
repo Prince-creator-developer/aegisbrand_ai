@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "AegisBrand AI — In-Situ Workspace Brand Guardrail",
+  "version": "2.0.0",
+  "description": "Real-time pre-publication brand governance, claim verification & intent-preserving refactoring for Google Docs, Notion, and Figma.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AegisBrand AI Quick Guardrail"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://docs.google.com/*",
+        "https://www.notion.so/*",
+        "https://www.figma.com/*",
+        "http://localhost:8000/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

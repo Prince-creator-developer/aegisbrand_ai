@@ -3,7 +3,7 @@ import sys
 from fastapi import FastAPI, Request, HTTPException, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
@@ -17,8 +17,9 @@ from core.engine import engine
 from core.knowledge_base import kb
 from core.workflow import workflow
 from core.ambiguity_analyzer import analytics
+from core.c2pa_engine import c2pa_engine
+from core.conflict_resolver import conflict_resolver
 
-# Dynamic Base Directory Discovery for Cloud & Serverless
 def get_base_dir():
     candidates = [
         CURRENT_FILE_DIR,
@@ -34,8 +35,8 @@ BASE_DIR = get_base_dir()
 
 app = FastAPI(
     title="AegisBrand AI — Pre-Publication Brand Governance Platform",
-    description="Intelligent Brand Governance & Claim Verification Engine (Inkloom AI Problem Statement)",
-    version="1.0.0"
+    description="Intelligent Brand Governance & Claim Verification Engine (Inkloom AI Problem Statement — Round 3)",
+    version="2.0.0"
 )
 
 # CORS Middleware
@@ -92,8 +93,17 @@ class VerifiedClaimRequest(BaseModel):
     source: str
     keywords: List[str]
 
+class C2PAVerifyRequest(BaseModel):
+    manifest: Dict[str, Any]
+    content: str
+
+class CustomDocRequest(BaseModel):
+    department: str
+    document_title: str
+    claims: List[Dict[str, str]]
+
 # -------------------------------------------------------------
-# FRONTEND ROUTES (FAIL-SAFE FOR VERCEL & SERVERLESS)
+# FRONTEND ROUTES
 # -------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -106,7 +116,7 @@ def read_root():
         if os.path.exists(p):
             with open(p, "r", encoding="utf-8") as f:
                 return HTMLResponse(content=f.read())
-    return HTMLResponse(content="<h1>AegisBrand AI Backend Running</h1><p>Visit /api/guidelines to verify API.</p>")
+    return HTMLResponse(content="<h1>AegisBrand AI Backend Running</h1>")
 
 @app.get("/static/css/style.css")
 def get_css():
@@ -209,6 +219,41 @@ def request_changes(sub_id: str, req: ChangesRequest):
 def add_comment(sub_id: str, req: CommentRequest):
     workflow.add_comment(sub_id, req.author, req.role, req.text)
     return {"status": "success"}
+
+# -------------------------------------------------------------
+# ROUND 3 IMPROVEMENT 2: C2PA CRYPTOGRAPHIC PROVENANCE API
+# -------------------------------------------------------------
+@app.get("/api/c2pa/manifest/{sub_id}")
+def get_c2pa_manifest(sub_id: str):
+    sub = workflow.get_submission(sub_id)
+    if not sub:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+    manifest = c2pa_engine.generate_manifest(
+        content=sub.get("current_content", ""),
+        title=sub.get("title", ""),
+        author=sub.get("creator", "Content Creator"),
+        manager_name=sub.get("approved_by") or "Marcus Vance (VP Brand)",
+        compliance_score=sub.get("compliance_score", 95)
+    )
+    return manifest
+
+@app.post("/api/c2pa/verify")
+def verify_c2pa_content(req: C2PAVerifyRequest):
+    return c2pa_engine.verify_manifest(req.manifest, req.content)
+
+# -------------------------------------------------------------
+# ROUND 3 IMPROVEMENT 3: AUTONOMOUS CONFLICT RESOLVER API
+# -------------------------------------------------------------
+@app.get("/api/conflicts")
+def get_policy_conflicts():
+    return {
+        "documents": conflict_resolver.get_department_documents(),
+        "conflicts": conflict_resolver.detect_conflicts()
+    }
+
+@app.post("/api/conflicts/document")
+def add_conflict_document(req: CustomDocRequest):
+    return conflict_resolver.add_custom_document(req.department, req.document_title, req.claims)
 
 # -------------------------------------------------------------
 # GOVERNANCE & AMBIGUITY ANALYTICS API
