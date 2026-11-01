@@ -10,7 +10,8 @@
           "static/**",
           "data/**",
           "core/**",
-          "app.py"
+          "app.py",
+          "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"
         ]
       }
     }

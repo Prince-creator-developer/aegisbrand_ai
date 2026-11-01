@@ -1521,11 +1521,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // -------------------------------------------------------------
-    // EVALUATOR 1-CLICK GUIDED DEMO TOUR
+    // EVALUATOR 1-CLICK GUIDED DEMO TOUR & PDF MODAL
     // -------------------------------------------------------------
     const btnStartTour = document.getElementById("btn-start-tour");
     const btnDismissTour = document.getElementById("btn-dismiss-tour");
     const tourBanner = document.getElementById("evaluator-tour-banner");
+    const btnOpenPdfModal = document.getElementById("btn-open-pdf-modal");
+    const btnClosePdfModal = document.getElementById("btn-close-pdf-modal");
+    const pdfModal = document.getElementById("pdf-modal");
+
+    if (btnOpenPdfModal && pdfModal) {
+        btnOpenPdfModal.addEventListener("click", () => {
+            pdfModal.classList.remove("hidden");
+        });
+    }
+    if (btnClosePdfModal && pdfModal) {
+        btnClosePdfModal.addEventListener("click", () => {
+            pdfModal.classList.add("hidden");
+        });
+    }
+    if (pdfModal) {
+        pdfModal.addEventListener("click", (e) => {
+            if (e.target === pdfModal) pdfModal.classList.add("hidden");
+        });
+    }
 
     if (btnDismissTour && tourBanner) {
         btnDismissTour.addEventListener("click", () => tourBanner.classList.add("hidden"));

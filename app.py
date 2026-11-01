@@ -145,17 +145,29 @@ def get_js():
     return Response(content="", media_type="application/javascript")
 
 @app.get("/AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf")
+@app.get("/pdf")
 def get_round3_pdf():
     pdf_paths = [
-        os.path.join(BASE_DIR, "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
         os.path.join(CURRENT_FILE_DIR, "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
+        os.path.join(CURRENT_FILE_DIR, "static", "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
+        os.path.join(BASE_DIR, "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
+        os.path.join(BASE_DIR, "static", "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
         os.path.join(os.getcwd(), "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
+        os.path.join(os.getcwd(), "static", "AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"),
         r"c:\Users\Prince kumar\OneDrive\Desktop\dsih\AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf"
     ]
     for p in pdf_paths:
         if os.path.exists(p):
             with open(p, "rb") as f:
-                return Response(content=f.read(), media_type="application/pdf")
+                return Response(
+                    content=f.read(),
+                    media_type="application/pdf",
+                    headers={
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                )
     raise HTTPException(status_code=404, detail="PDF Dossier not found")
 
 # -------------------------------------------------------------

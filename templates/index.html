@@ -98,8 +98,11 @@
                 <button id="btn-start-tour" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1.5 shadow-sm shadow-indigo-500/30">
                     <i class="fa-solid fa-play text-[10px]"></i> 1-Click Guided Demo
                 </button>
-                <a href="/AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs transition border border-slate-700 flex items-center gap-1">
-                    <i class="fa-solid fa-file-pdf text-rose-400"></i> View Round 3 PDF
+                <button id="btn-open-pdf-modal" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs transition border border-slate-700 flex items-center gap-1.5 shadow-sm cursor-pointer">
+                    <i class="fa-solid fa-file-pdf text-rose-400"></i> View Round 3 PDF <span class="bg-rose-500/20 text-rose-300 text-[10px] px-1.5 py-0.2 rounded font-mono font-bold">7 Slides</span>
+                </button>
+                <a href="/AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf?v=7slides" target="_blank" title="Open PDF in new tab" class="text-slate-400 hover:text-slate-200 text-xs px-1 py-1 transition">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
                 <button id="btn-dismiss-tour" class="text-slate-400 hover:text-white px-1.5 py-1" title="Dismiss banner"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -614,6 +617,35 @@
                         <button id="btn-verify-manifest" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-circle-check"></i> Verify Digital Signature & Integrity
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Round 3 PDF Viewer Modal -->
+            <div id="pdf-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+                <div class="bg-slate-900 text-white rounded-2xl max-w-5xl w-full h-[90vh] border border-slate-700 shadow-2xl flex flex-col overflow-hidden">
+                    <div class="flex items-center justify-between px-5 py-3 border-b border-slate-800 bg-slate-950">
+                        <div class="flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base border border-rose-500/30">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </span>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-100 flex items-center gap-2">
+                                    AegisBrand AI — Round 3 Final Product Dossier
+                                    <span class="bg-indigo-500/20 text-indigo-300 text-[10px] px-2 py-0.5 rounded font-mono border border-indigo-500/30 font-semibold">7 Slides Total</span>
+                                </h3>
+                                <p class="text-[11px] text-slate-400">Team PRINCE OF VALERIA • CodeStar 30 Finalist Build</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="/AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf?v=7slides" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i> Open in New Tab
+                            </a>
+                            <button id="btn-close-pdf-modal" class="text-slate-400 hover:text-white px-2 py-1 text-lg" title="Close"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-slate-950 p-1 relative">
+                        <iframe id="pdf-viewer-frame" src="/AegisBrand_AI_CodeStar30_Round3_Final_Finish_Dossier.pdf?v=7slides#view=FitH" class="w-full h-full rounded-b-xl border-0" title="AegisBrand AI Round 3 Dossier PDF"></iframe>
                     </div>
                 </div>
             </div>
