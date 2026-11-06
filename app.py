@@ -170,6 +170,32 @@ def get_round3_pdf():
                 )
     raise HTTPException(status_code=404, detail="PDF Dossier not found")
 
+@app.get("/Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf")
+@app.get("/round1-plan")
+def get_codetitans_round1_pdf():
+    pdf_paths = [
+        os.path.join(CURRENT_FILE_DIR, "Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"),
+        os.path.join(CURRENT_FILE_DIR, "static", "Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"),
+        os.path.join(BASE_DIR, "Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"),
+        os.path.join(BASE_DIR, "static", "Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"),
+        os.path.join(os.getcwd(), "Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"),
+        os.path.join(os.getcwd(), "static", "Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"),
+        r"c:\Users\Prince kumar\OneDrive\Desktop\dsih\Raven_Intelligence_CodeTitans2026_Round1_Plan.pdf"
+    ]
+    for p in pdf_paths:
+        if os.path.exists(p):
+            with open(p, "rb") as f:
+                return Response(
+                    content=f.read(),
+                    media_type="application/pdf",
+                    headers={
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                )
+    raise HTTPException(status_code=404, detail="CodeTitans Round 1 PDF not found")
+
 # -------------------------------------------------------------
 # CORE AUDIT API
 # -------------------------------------------------------------
