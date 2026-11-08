@@ -196,6 +196,33 @@ def get_codetitans_round1_pdf():
                 )
     raise HTTPException(status_code=404, detail="CodeTitans Round 1 PDF not found")
 
+@app.get("/Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf")
+@app.get("/round2-pdf")
+@app.get("/round2-build")
+def get_codetitans_round2_pdf():
+    pdf_paths = [
+        os.path.join(CURRENT_FILE_DIR, "Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"),
+        os.path.join(CURRENT_FILE_DIR, "static", "Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"),
+        os.path.join(BASE_DIR, "Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"),
+        os.path.join(BASE_DIR, "static", "Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"),
+        os.path.join(os.getcwd(), "Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"),
+        os.path.join(os.getcwd(), "static", "Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"),
+        r"c:\Users\Prince kumar\OneDrive\Desktop\dsih\Raven_Intelligence_CodeTitans2026_Round2_Build_Dossier.pdf"
+    ]
+    for p in pdf_paths:
+        if os.path.exists(p):
+            with open(p, "rb") as f:
+                return Response(
+                    content=f.read(),
+                    media_type="application/pdf",
+                    headers={
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                )
+    raise HTTPException(status_code=404, detail="CodeTitans Round 2 PDF not found")
+
 # -------------------------------------------------------------
 # CORE AUDIT API
 # -------------------------------------------------------------
